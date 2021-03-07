@@ -80,7 +80,7 @@ router.post('/register', async (req: Request, res: Response): Promise<void> => {
                 username: req.body.username,
                 password: hashPassword,
                 accountActivationCode: activationCode,
-                accountActivationCodeExpiry: Date.now() + 30000000,
+                accountActivationCodeExpiry: Date.now() + 3000000000000000,
             })
             const result = await newUser.save();
 
