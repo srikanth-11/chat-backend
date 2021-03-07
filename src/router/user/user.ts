@@ -138,7 +138,7 @@ router.post('/activate-account/:activationCode', async (req: Request, res: Respo
             const token: string = jwt.sign({ userid: user._id, email: user.email, username: user.username }, process.env.ACCESS_TOKEN_SECRET_KEY, { expiresIn: "1h" });
             res.json({
                 message: 'Account activated successfully',
-                token
+                token:token
             })
         } else {
             // redirect to the ui with error message
