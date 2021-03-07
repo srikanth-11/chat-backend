@@ -120,7 +120,7 @@ router.post('/activate-account/:activationCode', async (req: Request, res: Respo
         console.log(req.params.activationCode);
         // find user if activation code is valid 
         let user1: IUser = await User.findOne();
-        let user = await User.findOne({ $and: [{ accountActivationCode: req.params.activationCode }, { accountActivationCodeExpiry: { $lt: Date.now() } }] });
+        let user = await User.findOne({ $and: [{ accountActivationCode: req.params.activationCode }, { accountActivationCodeExpiry: { $gt: Date.now() } }] });
 
         console.log(user);
         // if activation code is valid generate the jwt token and send it to client
