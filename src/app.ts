@@ -1,19 +1,21 @@
+import   e = require('cors')
 import  { Next } from "express";
 import * as dotenv from "dotenv";
+dotenv.config();
 import * as mongoose from "mongoose";
 import userRoute from "./router/user/user";
 import indexRoute from "./router/main/main";
 import groupRoute from "./router/group/group";
 import * as bodyParser from "body-parser";
 import  * as jwt from "jsonwebtoken";
-import   e = require('cors')
+
 import { Message, ChatMessage } from "./models/chatmessages/chatmessages";
 import { Group } from "./models/groups/groups";
 import * as express from 'express';
 
 // app config
 const app = express();
-dotenv.config();
+
 const port = process.env.PORT || 5000;
 
 // middleware
