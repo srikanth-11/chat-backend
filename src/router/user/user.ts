@@ -17,8 +17,7 @@ const validator = new Validator();
 
 // handle user login 
 router.post('/login', async (req: Request, res: Response): Promise<void> => {
-    let user: IUser = await User.findOne({ email: req.body.email });
-        console.log(user)
+    
     try {
 
         // find user exists and compare password to authenticate the user
