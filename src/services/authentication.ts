@@ -7,6 +7,7 @@ function authenticate(req: Request, res: Response, next:Next): void {
 
         jwt.verify(req.headers.authorization, process.env.ACCESS_TOKEN_SECRET_KEY, function (err, data) {
             if (data) {
+                console.log(data)
                 if (data.userid) {
                     req.body.userid = data.userid
                     req.body.email = data.email
