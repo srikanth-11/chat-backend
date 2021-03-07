@@ -17,11 +17,14 @@ const validator = new Validator();
 
 // handle user login 
 router.post('/login', async (req: Request, res: Response): Promise<void> => {
+    let user: IUser = await User.findOne({ email: req.body.email });
+        console.log(user)
     try {
 
         // find user exists and compare password to authenticate the user
         let user: IUser = await User.findOne({ email: req.body.email });
-        let isUserAuthenticated: boolean = await bycrypt.compare(req.body.password, user.password);
+        console.log(user)
+        let isUserAuthenticated: boolean =  bycrypt.compare(req.body.password, user.password);
 
         // if user authenticated create jwt token and sent to user.
         if (isUserAuthenticated && user.isActive) {
@@ -73,6 +76,7 @@ router.post('/register', async (req: Request, res: Response): Promise<void> => {
 
             // create a random string for activation code
             let activationCode = crypto.randomBytes(32).toString('hex');
+            console.log(activationCode)
 
             // insert the user in the db
             const newUser: IUser = new User({
@@ -83,6 +87,7 @@ router.post('/register', async (req: Request, res: Response): Promise<void> => {
                 accountActivationCodeExpiry: Date.now() + 3000000000000000,
             })
             const result = await newUser.save();
+            console.log(newUser)
 
             // Set value to send for account activation
             const mailService = new MailService();
@@ -119,7 +124,7 @@ router.post('/activate-account/:activationCode', async (req: Request, res: Respo
     try {
         console.log(req.params.activationCode);
         // find user if activation code is valid 
-        let user1: IUser = await User.findOne();
+        
         let user = await User.findOne({ $and: [{ accountActivationCode: req.params.activationCode }, { accountActivationCodeExpiry: { $gt: Date.now() } }] });
 
         console.log(user);

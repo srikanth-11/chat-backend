@@ -15,24 +15,13 @@ import * as express from 'express';
 const app = express();
 dotenv.config();
 const port = process.env.PORT || 5000;
-const options: e.CorsOptions = {
-  allowedHeaders: [
-    "Origin",
-    "X-Requested-With",
-    "Content-Type",
-    "Accept",
-    "X-Access-Token",
-  ],
-  credentials: true,
-  methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
-  origin: process.env.REQUEST_ORIGIN,
-  preflightContinue: false,
-};
+
 // middleware
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(e(options));
-app.options("*", e(options));
 app.use(bodyParser.json());
+app.use(e({
+  origin: process.env.REQUEST_ORIGIN
+}))
 
 // router
 app.use("/", indexRoute);
