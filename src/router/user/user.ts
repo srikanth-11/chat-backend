@@ -72,7 +72,7 @@ router.post('/register', async (req: Request, res: Response): Promise<void> => {
             let hashPassword = await bycrypt.hash(req.body.password, salt);
 
             // create a random string for activation code
-            let activationCode = await crypto.randomBytes(32).toString('hex');
+            let activationCode = crypto.randomBytes(32).toString('hex');
 
             // insert the user in the db
             const newUser: IUser = new User({
